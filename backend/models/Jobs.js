@@ -32,9 +32,7 @@ const JobSchema = new mongoose.Schema({
     },
     skillsRequired: {
         type: [String],
-        required: [true, 'please add a minmum skill'],
-        enum: ['web design', 'web development', 'graphic design', 'digital marketing'
-        , 'seo', 'data alalysis', 'mobile development', 'video editing', 'translation']
+        required: [true, 'please add a minmum skill']
     },
     address: {
       type: String,
@@ -50,13 +48,11 @@ const JobSchema = new mongoose.Schema({
     },
     jobType: {
         type: [String],
-        required: [true, 'please enter job type'],
-        enum: ['on-going', 'contract', 'full-time']
+        required: [true, 'please enter job type']
     },
     jobCategory: {
         type: String,
-        required: [true, 'please enter the job category'],
-        enum: ['Electrical', 'Software', 'Development', 'Content Creation', 'Architectural', 'Design']
+        required: [true, 'please enter the job category']
     },
     user: {
         type: mongoose.Schema.ObjectId,
