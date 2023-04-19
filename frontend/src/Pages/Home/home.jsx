@@ -39,10 +39,16 @@ const IndCard = ({job})=>{
                 <p>
                 {job.description}
                 </p>
-                <div className="flex gap-2">
-                {job.skillsRequired.map((ind)=>{
-                    return(<Tag tag={ind} />)
-                })}
+                <div className="flex justify-between">
+                    <div className="flex gap-2">
+                    {job.skillsRequired.map((ind)=>{
+                        return(<Tag tag={ind} />)
+                    })}
+                    </div>
+                    <div className="flex gap-2 mt-2">
+                        <Tag tag={job.phone} />
+                        <Tag tag={job.email} />
+                    </div>
                 </div>
             </div>
 
@@ -81,9 +87,48 @@ const Home = ()=>{
             // handle error
             console.log(error);
         })
-    })
+    }, [])
     const changeActiveNav = (val)=>{
         setActiveNav(val)
+        if(val==1){
+            setIsLoaded(false)
+            axios.get(`https://zenith-web.onrender.com/api/v1/jobs?&sort=deadline`,{
+            headers: {
+                'Content-Type': 'application/json',
+                }
+            })
+            .then(response => {
+                // handle success
+                setJobs(response.data.data)
+                setIsLoaded(true)
+            }
+            )
+            .catch(error => {
+                // handle error
+                console.log(error);
+            }
+            )
+        }
+    }
+    const search = ()=>{
+        setIsLoaded(false)
+        const searchTerm = document.getElementById("search").value
+        axios.get(`https://zenith-web.onrender.com/api/v1/jobs?title=${searchTerm}`,{
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => {
+            // handle success
+            setJobs(response.data.data)
+            setIsLoaded(true)
+        }
+        )
+        .catch(error => {
+            // handle error
+            console.log(error);
+        }
+        )
     }
     return(
         <div className="w-full">
@@ -92,7 +137,7 @@ const Home = ()=>{
                     <div>
                         <p className="text-4xl font-bold text-white py-0 my-0">{role=="Publisher"? "Post jobs you want to get done":"Find Jobs around you"}</p>
                         <p className="text-l font-semibold text-white py-0">{role=="Publisher"? "Search for student tallent to get the job done":"Find works easily that suits your skillset"}</p>
-                        
+                        {role=="Publisher"&& <Post />}
                         
                     </div>
                     <img src={im} className="h-40 mt-4 mr-20"/>
@@ -100,8 +145,8 @@ const Home = ()=>{
             </div>
             <div className="text-center w-full flex justify-center">
                 <div className="text-center w-2/3">
-                    <Input placeholder="Search" className="w-full p-2 mt-4" />
-                    <Button className="mt-2" type="primary"> Search </Button>
+                    <Input placeholder="Search" id="search" className="w-full p-2 mt-4" />
+                    <Button className="mt-2 p-2" type="primary" onClick={search}> Search </Button>
                 </div>
             </div>
             <div className=" border-black shadow-xl p-4 pl-0 pr-0 border-2 rounded-lg mt-10  text-gray-700">
@@ -112,7 +157,7 @@ const Home = ()=>{
                         <h1 className={activeNav==1? "mb-0 border-solid border-0 border-b-2 cursor-pointer": "mb-[4px] cursor-pointer"} onClick={()=> changeActiveNav(1)}>Most recent</h1> 
                     </div>
                 </div>
-                {!isLoaded? <List /> : !jobs? <h1> No job listing found </h1> : <ALlJobs jobs={jobs}/>}
+                {!isLoaded? <List /> : !jobs? <h1 className="mt-20"> No job listing found </h1> : <ALlJobs jobs={jobs}/>}
 
                 {/* <IndCard /> */}
 

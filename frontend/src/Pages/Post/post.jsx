@@ -2,12 +2,14 @@ import { Button, Modal, Form, Input, Cascader, DatePicker } from "antd";
 import { document } from "postcss";
 import { useState, useRef } from 'react';
 const { TextArea } = Input;
+import {reactLocalStorage} from 'reactjs-localstorage';
+const id = reactLocalStorage.get('id')
 
 
 const Post = () => {
     const [postModalLoading, setpostModalLoading] = useState(false);
     const [openPostModal, setopenPostModal] = useState(false);
-    
+    const [loading, setLoading] = useState(false)
     
     const showModal = () => {
         setopenPostModal(true);
@@ -34,11 +36,31 @@ const Post = () => {
             careers: res.skill,
             deadline: res.date? Date.parse(res.date.$d): null,
             jobType: res.type[0],
-            jobCategory: res.category,
+            jobCategory: res.category[0],
             paymentAmount: res.amount
         };
         console.log(newObj)
-        const req =  fetch("")
+        const sendReq = fetch(`https://zenith-web.onrender.com/api/v1/users/${id}/jobs`, {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newObj)
+        }).then(async (res)=>{
+            res = await res.json()
+            console.log(res)
+            setLoading(false)
+            if(res.success){
+                handleCancel()
+            }
+            else{
+                console.log(res)
+            }
+            })
+            .then(fin=>{
+                console.log(fin)
+            })
         // console.log(title.input.value, description.input.value, skill.input.value, amount.input.value, phone.input.value, website.input.value, date.input.value, location.input.value, type.input.value, category.input.value)
     }
     
@@ -102,12 +124,12 @@ const Post = () => {
                 label: 'Web development',
             },
             {
-                value: 'Mobile development',
-                label: 'Mobile development',
+                value: 'mobile development',
+                label: 'mobile development',
             },
             {
-                value: 'Graphic Design',
-                label: 'Graphic Design',
+                value: 'graphic design',
+                label: 'graphic design',
             },
             {
                 value: 'Content Writing',
@@ -122,8 +144,8 @@ const Post = () => {
                 label: 'Translation',
             },
             {
-                value: 'Video Editing',
-                label: 'Video Editing',
+                value: 'video editing',
+                label: 'video editing',
             },
             {
                 value: 'Audio Editing',
@@ -134,8 +156,8 @@ const Post = () => {
                 label: 'Photography',
             },
             {
-                value: "SEO",
-                label: "SEO",
+                value: "seo",
+                label: "seo",
             },
             {
                 value: "Digital Marketing",

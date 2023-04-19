@@ -20,17 +20,17 @@ const MainHome = ()=>{
     <Layout>
           <Header className='bg-slate-50 w-full fixed top-0 flex justify-between z-10 shadow-sm'>
             <div className="flex items-center">
-              <img src={Logo} alt="Logo" className='h-10' />
+              <a href="/"><img src={Logo} alt="Logo" className='h-10' /></a>
               <nav className='ml-8 flex justify-evenly gap-4'>
-                <a href="#">My Posts</a>
+                {/* <a href="#">My Posts</a>
                 <a href="#"></a>
-                <a href="#">Message</a>
+                <a href="#">Message</a> */}
               </nav>
             </div>
             {!id? (<div className='flex gap-3 mt-4'>
               <Button type='primary' href='/login'>Login</Button>
               <Button type='primary' href='/signup'>Sign Up</Button>
-            </div>): <div className='mt-2 cursor-pointer flex gap-3'><div className='rounded-full h-10 w-10 bg-slate-700'></div> <a className='mt-[-10px]' onClick={logout
+            </div>): <div className='mt-2 cursor-pointer flex gap-3'><a href="/profile"><img src={Logo} className='rounded-full h-10 w-10 '/></a><a className='mt-[-10px]' onClick={logout
             }>Logout</a></div>}
           </Header>
           <Layout className='mx-20'>
