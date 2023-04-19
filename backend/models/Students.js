@@ -60,17 +60,14 @@ const StudentSchema = new mongoose.Schema({
       skills: {
           type: [String],
           required: [true, 'please add a minmum skill'],
-          enum: ["Web Development", "UI/UX", "Business", 'web design', 'web development', 'graphic design', 'digital marketing'
-          , 'seo', 'data alalysis', 'mobile development', 'video editing', 'translation', "Data Science", "Business", "Mobile Development",]
-      },
+       },
       dob: {
         type: Date,
         required: [true, 'please enter a date']
       },
       department: {
         type: String,
-        required: [true, 'please enter a department'],
-        enum: ['Software Engeenering', 'chemical engineering', 'civil engineering', 'electrical engineering', "mechanical engineering"]
+        required: [true, 'please enter a department']
       },
       university: String,
       password: {
