@@ -1,13 +1,14 @@
 const mongoose = require('mongoose')
 const geocoder = require('../utils/geocoder')
 const slugify = require('slugify')
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 const UserSchema = new mongoose.Schema(
     {
       name: {
         type: String,
         required: [true, 'Please add a name'],
-        unique: true,
         trim: true,
         maxlength: [50, 'Name can not be more than 50 characters']
       },
@@ -22,7 +23,8 @@ const UserSchema = new mongoose.Schema(
       phone: {
         type: String,
         maxlength: [20, 'Phone number can not be longer than 20 characters'],
-        required: [true, 'Please add phone number']
+        required: [true, 'Please add phone number'],
+        unique: true
       },
       email: {
         type: String,
@@ -30,7 +32,13 @@ const UserSchema = new mongoose.Schema(
           /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
           'Please add a valid email'
         ],
-        required: [true, 'Please add email address']
+        required: [true, 'Please add email address'],
+        unique: true
+      },
+      role:{
+        type: String,
+        enum: ['user', 'publisher'],
+        default: 'user'
       },
       address: {
         type: String,
@@ -53,6 +61,14 @@ const UserSchema = new mongoose.Schema(
         zipcode: String,
         country: String
       },
+      password: {
+        type: String,
+        required: [true, 'please add a password'],
+        minlength: 6,
+        select: false
+      },
+      resetPasswordToken: String,
+      resetPasswordExpire: Date,
       createdAt: {
         type: Date,
         default: Date.now
@@ -90,6 +106,26 @@ const UserSchema = new mongoose.Schema(
   });
   
   
+// Encrypt password using bcrypt
+UserSchema.pre('save', async function(next) {
+  const salt = await bcrypt.genSalt(10)
+  this.password = await bcrypt.hash(this.password, salt)
+})
+
+// Sign JWT and return
+UserSchema.methods.getSignedJwtToken = function name(params) {
+  return jwt.sign({ id: this._id}, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRE
+  })
+}
+
+// match user entered password to hashed password in database
+UserSchema.methods.matchPassword = async function(enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password)
+}
+
+
+
   // Reverse populate with virtuals
   UserSchema.virtual('jobs', {
     ref: 'Job',

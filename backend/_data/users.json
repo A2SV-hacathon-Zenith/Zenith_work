@@ -5,7 +5,9 @@
 		"website": "https://devworks.com",
 		"phone": "(111) 111-1111",
 		"email": "enroll@devworks.com",
-		"address": "233 Bay State Rd Boston MA 02215"
+		"address": "233 Bay State Rd Boston MA 02215",
+		"role": "user",
+		"password": "123456"
 		
 	},
 	{
@@ -15,7 +17,9 @@
 		"website": "https://moderntech.com",
 		"phone": "(222) 222-2222",
 		"email": "enroll@moderntech.com",
-		"address": "220 Pawtucket St, Lowell, MA 01854"
+		"address": "220 Pawtucket St, Lowell, MA 01854",
+		"role": "publisher",
+		"password": "123456"
 		
 	},
 	{
@@ -25,7 +29,9 @@
 		"website": "https://codemasters.com",
 		"phone": "(333) 333-3333",
 		"email": "enroll@codemasters.com",
-		"address": "85 South Prospect Street Burlington VT 05405"
+		"address": "85 South Prospect Street Burlington VT 05405",
+		"role": "user",
+		"password": "123456"
 		
 	},
 	{
@@ -35,6 +41,8 @@
 		"website": "https://devcentral.com",
 		"phone": "(444) 444-4444",
 		"email": "enroll@devcentral.com",
-		"address": "45 Upper College Rd Kingston RI 02881"
+		"address": "45 Upper College Rd Kingston RI 02881",
+		"role": "publisher",
+		"password": "123456"
 	}
 ]

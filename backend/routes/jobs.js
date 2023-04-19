@@ -8,7 +8,7 @@ const advancedResult = require('../middleware/advancedResult')
 
 router.route('/').get(advancedResult(Job, {
     path: 'user',
-    select: 'name description'
+    select: 'name slug'
 }
 ),getJobs).post(addJob)
 router.route('/:id').get(getJob).put(updateJob).delete(deleteJob)
