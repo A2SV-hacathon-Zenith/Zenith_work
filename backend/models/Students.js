@@ -20,6 +20,10 @@ const StudentSchema = new mongoose.Schema({
       required: [true, 'Please add phone number'],
       unique: true
     },
+    photo: {
+      type: String,
+      default: '/uploads/default.jpg'
+    },
     email: {
         type: String,
         match: [
@@ -50,7 +54,7 @@ const StudentSchema = new mongoose.Schema({
         zipcode: String,
         country: String
       },
-      skillsRequired: {
+      skills: {
           type: [String],
           required: [true, 'please add a minmum skill'],
           enum: ["Web Development", "UI/UX", "Business", 'web design', 'web development', 'graphic design', 'digital marketing'

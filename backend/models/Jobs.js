@@ -40,6 +40,10 @@ const JobSchema = new mongoose.Schema({
       type: String,
       required: [true, 'Please add an address']
     },
+    paymentAmount: {
+      type: Number,
+      required: [true, 'Please add an amount']
+    },
     deadline: {
         type: Date,
         default: new Date().getTime() + (86400000)*5

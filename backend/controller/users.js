@@ -113,10 +113,10 @@ exports.uploadUserPhoto = asyncHandler(async (req, res, next) => {
                 new ErrorResponse(`Pproblem with uploading ${req.params.id}`, 500)
                 );
         }
-        await User.findByIdAndUpdate(req.params.id, {photo: file.name})
+        await User.findByIdAndUpdate(req.params.id, {photo: `/uploads/${file.name}`})
         res.status(200).json({
             success: true,
-            data: file.name
+            data: `/uploads/${file.name}`
         })
     })
 })
