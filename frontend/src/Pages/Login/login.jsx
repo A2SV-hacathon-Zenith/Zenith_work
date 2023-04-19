@@ -1,24 +1,62 @@
 import { Input, Tooltip, Button, Divider, Alert } from 'antd';
 import { UserOutlined, LockOutlined} from '@ant-design/icons';
 import { useState } from 'react';
+import {reactLocalStorage} from 'reactjs-localstorage';
+import logo from '../../assets/z.png'
+
+const id = reactLocalStorage.get('id')
 const Login = ()=>{
-    console.log("Login")
+    if(id){
+        window.location.href = "/"
+    }
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
     const [errorMessage, serErrorMessage] = useState("")
 
     const handleLogin = ()=>{
-        const userName = document.getElementById("username").value
-        const password = document.getElementById("password").value
-        console.log(userName, password)
         setLoading(true)
+        const email = document.getElementById("username").value
+        const password = document.getElementById("password").value
+        const dat = {
+            email,
+            password, 
+        }
+        const sendReq = fetch("https://zenith-web.onrender.com/api/v1/auth/login", {
+                method: "POST",
+                credentials: "same-origin",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dat)
+            }).then(async (res)=>{
+                res = await res.json()
+                console.log(res)
+                setLoading(false)
+                if(res.success){
+                    reactLocalStorage.set('role', res.role);
+                    reactLocalStorage.set('name', res.name);
+                    reactLocalStorage.set('id', res.id)
+                    window.location.href = "/"
+                }
+                else{
+                    setError(true)
+                    console.log(res)
+                    serErrorMessage(res.error)
+                }
+                })
+                .then(fin=>{
+                    console.log(fin)
+                })
     }
     return(
         <section class="bg-white-50 font-Dongle">
             <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <div class="w-full bg-white-50  rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0  dark:border-gray-900">
                     <div class=" bg-white-50 p-6 space-y-4 md:space-y-6 sm:p-8">
-                        <h1 class="text-4xl text-center text-gray-00 md:text-2xl dark:text-gray-700">
+                        <div className='text-center'>
+                            <img src={logo} className='h-20' />
+                        </div>
+                        <h1 class="text-4xl text-center text-gray-00 md:text-2xl dark:text-emerald-700">
                             Login in to Zenith
                         </h1>
                         {error ? <Alert message={errorMessage?errorMessage:"Error Logging in"}  className="text-center" type="error" /> : null}

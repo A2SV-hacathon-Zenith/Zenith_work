@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "reactjs-localstorage": "^1.0.1"
+  }
+}

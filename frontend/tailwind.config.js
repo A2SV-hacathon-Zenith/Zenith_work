@@ -8,6 +8,7 @@ export default {
     extend: {
       fontFamily: {
         'Dongle': ['Dongle', 'sans-serif'],
+        'Montserrat': ['Montserrat', 'sans-serif'],
       }
     },
   },

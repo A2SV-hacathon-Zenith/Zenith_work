@@ -1,11 +1,14 @@
 import { Button, Modal, Form, Input, Cascader, DatePicker } from "antd";
-import { useState } from 'react';
+import { document } from "postcss";
+import { useState, useRef } from 'react';
 const { TextArea } = Input;
-const { RangePicker } = DatePicker;
+
 
 const Post = () => {
     const [postModalLoading, setpostModalLoading] = useState(false);
     const [openPostModal, setopenPostModal] = useState(false);
+    
+    
     const showModal = () => {
         setopenPostModal(true);
     };
@@ -19,58 +22,64 @@ const Post = () => {
     const handleCancel = () => {
         setopenPostModal(false);
     };
+
+    function pst(res){
+        const newObj = {
+            title: res.title,
+            description: res.description,
+            website: res.website,
+            phone: res.phone,
+            email: res.email,
+            address: res.location,
+            careers: res.skill,
+            deadline: res.date? Date.parse(res.date.$d): null,
+            jobType: res.type[0],
+            jobCategory: res.category,
+            paymentAmount: res.amount
+        };
+        console.log(newObj)
+        const req =  fetch("")
+        // console.log(title.input.value, description.input.value, skill.input.value, amount.input.value, phone.input.value, website.input.value, date.input.value, location.input.value, type.input.value, category.input.value)
+    }
+    
     const FormModal = ()=>{
         const [form] = Form.useForm();
-        const locationoptions = [
-            {
-                label: 'Addis Ababa',
-                value: 'Addis Ababa',
-            },
-            {
-                label: 'Dire Dawa',
-                value: 'Dire Dawa',
-            },
-            {
-                label: 'Bahir Dar',
-                value: 'Bahir Dar',
-            },
-            {
-                label: 'Gondar',
-                value: 'Gondar',
-            },
-            {
-                label: 'Jimma',
-                value: 'Jimma',
-            },
-            {
-                label: 'Jijiga',
-                value: 'Jijiga',
-            },
-            {
-                label: 'Mekele',
-                value: 'Mekele',
-            },
-            {
-                label: 'Adama',
-                value: 'Adama',
-            },
-            {
-                label: 'Debre Markos',
-                value: 'Debre Markos',
-            },
-            {
-                label: 'Debre Tabor',
-                value: 'Debre Tabor',
-            },
-        ]
         const skilloptions = [
             {
-              label: 'Light',
-              value: 'light',
+              label: 'web design',
+              value: 'web design',
             },
             {
-              label: 'Bamboo',
-              value: 'bamboo',
+              label: 'web development',
+              value: 'web development',
+            },
+            {
+                label: 'graphic design',
+                value: 'graphic design',
+            },
+            {
+                label: 'digital marketing',
+                value: 'digital marketing',
+            },
+            {
+                label: 'seo',
+                value: 'seo',
+            },
+            {
+                label: 'data alalysis',
+                value: 'data alalysis',
+            },
+            {
+                label: 'mobile development',
+                value: 'mobile development',
+            },
+            {
+                label: 'video editing',
+                value: 'video editing',
+            },
+            {
+                label: 'translation',
+                value: 'translation',
             },
           ];
         const jobtypeoptions = [
@@ -148,42 +157,46 @@ const Post = () => {
             },
         ]
           const onChange = (value) => {
-            console.log(value);
+            // console.log(value, form);
+            console.log(form.values)
           };
+          
         return (
               <Modal
                 open={openPostModal}
                 title={<h1 className="text-xl font-semibold">Add job posting</h1>}
-                onOk={handleOk}
                 onCancel={handleCancel}
+                className="relative top-[0px]"
                 footer={[
-                  <Button key="back" onClick={handleCancel}>
-                    Cancel
-                  </Button>,
-                  <Button key="submit" type="primary" postModalLoading={postModalLoading} onClick={handleOk}>
-                    Post
-                  </Button>
+                //   <Button key="back" onClick={handleCancel}>
+                //     Cancel
+                //   </Button>,
+                //   <Button key="submit" type="primary" postModalLoading={postModalLoading} onClick={postJob}>
+                //     Post
+                //   </Button>
                 ]}
               >
                 <p className="mt-4"> Fill the following form to add your job posting</p>
                 <Form 
                     layout={"vertical"}
                     form={form} 
+                    onFinish={pst}
                     className="mt-4"
                     style={{
                         maxWidth: 600,
                     }}>
-                    <Form.Item label={<p className="text-l font-semibold">Job Title</p>}>
-                        <Input placeholder="Job Title" className="border-gray-200 border-2"/>
+                    <Form.Item name={"title"} required label={<p className="text-l font-semibold">Job description</p>}>
+                        <Input id="title" name="title" placeholder="Job Title" className="border-gray-200 border-2"/>
                     </Form.Item>
-                    <Form.Item label={<p className="text-l font-semibold">Job description</p>}>
-                        <TextArea placeholder="Job description" showCount maxLength={300} style={{height: 120,}}className="border-gray-200 border-2"/>
+                    <Form.Item name={"description"} required label={<p className="text-l font-semibold">Job description</p>}>
+                        <TextArea id="description" placeholder="Job description" showCount maxLength={300} style={{height: 120,}}className="border-gray-200 border-2"/>
                     </Form.Item>
-                    <Form.Item label={<p className="text-l font-semibold">Skill required</p>}>
+                    <Form.Item name={"skill"} required label={<p className="text-l font-semibold">Skill required</p>}>
                         <Cascader
                             style={{
                             width: '100%',
                             }}
+                            id="skill"
                             options={skilloptions}
                             onChange={onChange}
                             multiple
@@ -191,34 +204,40 @@ const Post = () => {
                             placeholder=""
                         />
                     </Form.Item>
-                    <Form.Item label={<p className="text-l font-semibold">Payment Amount</p>}>
-                        <Input type="number" placeholder="Payment Amount" className="border-gray-200 border-2"/>
+                    <Form.Item name={"amount"} required label={<p className="text-l font-semibold">Payment Amount</p>}>
+                        <Input id="amount" type="number" placeholder="Payment Amount" className="border-gray-200 border-2"/>
                     </Form.Item>
-                    <Form.Item label={<p className="text-l font-semibold">Payment Amount</p>}>
-                        <Cascader options={paymentoptions} onChange={onChange} placeholder="Please select" />
+                    <Form.Item name={"phone"} required label={<p className="text-l font-semibold">Phone</p>}>
+                        <Input id="phone"  type="number" placeholder="Phone" className="border-gray-200 border-2"/>
                     </Form.Item>
-                    <Form.Item label={<p className="text-l font-semibold">Application Period</p>}>
-                        <RangePicker className="w-full"/>
+                    <Form.Item name={"website"} required label={<p className="text-l font-semibold">Website</p>}>
+                        <Input id="website"  type="text" placeholder="Website" className="border-gray-200 border-2"/>
                     </Form.Item>
-                    <Form.Item label={<p className="text-l font-semibold">Project deadline</p>}>
-                            <DatePicker className="w-full"/>
+                    <Form.Item name={"email"} required label={<p className="text-l font-semibold">Email</p>}>
+                        <Input id="email"  type="email" placeholder="Email" className="border-gray-200 border-2"/>
                     </Form.Item>
-                    <Form.Item label={<p className="text-l font-semibold">Job location</p>}>
-                        <Cascader options={locationoptions} onChange={onChange} placeholder="Please select" />
+                    <Form.Item name={"date"} required label={<p className="text-l font-semibold">Project deadline</p>}>
+                            <DatePicker id="date" className="w-full"/>
                     </Form.Item>
-                    <Form.Item label={<p className="text-l font-semibold">Job Type</p>}>
-                        <Cascader options={jobtypeoptions} onChange={onChange} placeholder="Please select" />
+                    <Form.Item name={"location"} required label={<p className="text-l font-semibold">Job location</p>}>
+                        <Input id="location"  onChange={onChange} placeholder="Enter location" />
                     </Form.Item>
-                    <Form.Item label={<p className="text-l font-semibold">Job Category</p>}>
-                        <Cascader options={jobcategoryeoptions} onChange={onChange} placeholder="Please select" />
+                    <Form.Item name={"type"} required label={<p className="text-l font-semibold">Job Type</p>}>
+                        <Cascader id="type"  options={jobtypeoptions} onChange={onChange} placeholder="Please select" />
                     </Form.Item>
+                    <Form.Item name={"category"} required label={<p className="text-l font-semibold">Job Category</p>}>
+                        <Cascader id="category"  options={jobcategoryeoptions} onChange={onChange} placeholder="Please select" />
+                    </Form.Item>
+                    <Button htmlType="submit" type="primary"  postModalLoading={postModalLoading}>
+                       Post
+                    </Button>
                 </Form>
               </Modal>
           );
     }
     return( 
-    <div className="bg-slate-50 rounded-lg border-gray-400 h-80 w-40">
-        <Button type="primary" onClick={showModal}> Create Job Posting </Button>
+    <div className="">
+        <Button onClick={showModal}> Create Job Posting </Button>
         <FormModal />
     </div>
     );
