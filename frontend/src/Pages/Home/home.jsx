@@ -146,7 +146,7 @@ const Home = ()=>{
             <div className="text-center w-full flex justify-center">
                 <div className="text-center w-2/3">
                     <Input placeholder="Search" id="search" className="w-full p-2 mt-4" />
-                    <Button className="mt-2 p-2" type="primary" onClick={search}> Search </Button>
+                    <Button className="mt-2" type="primary" onClick={search}> Search </Button>
                 </div>
             </div>
             <div className=" border-black shadow-xl p-4 pl-0 pr-0 border-2 rounded-lg mt-10  text-gray-700">
