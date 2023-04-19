@@ -1,6 +1,5 @@
 [
 	{
-		"_id": "5d713995b721c3bb38c1f5d1",
 		"name": "Abesolom nekahiwot",
 		"website": "https://devworks.com",
 		"phone": "(111) 111-1111",
@@ -9,10 +8,10 @@
 		"skills": ["Web Development", "UI/UX", "Business"],
 		"dob": 1681824811584,
 		"department": "Software Engeenering",
-		"university": "Addis Ababa Science And Technology"
+		"university": "Addis Ababa Science And Technology",
+		"password": "123456"
 	},
 	{
-		"_id": "5d713a66ec8f2b88b8f830b1",
 		"name": "Abel Getahun",
 		"description": "ModernTech has one goal, and that is to make you a rockstar developer and/or designer with a six figure salary. We teach both development and UI/UX",
 		"website": "https://moderntech.com",
@@ -22,10 +21,10 @@
 		"skills": ["Web Development", "UI/UX", "Mobile Development"],
 		"dob": 1681824811584,
 		"department": "Software Engeenering",
-		"university": "Addis Ababa Science And Technology"
+		"university": "Addis Ababa Science And Technology",
+		"password": "123456"
 	},
 	{
-		"_id": "5d725a037b292f5f8ceff781",
 		"name": "Abel Abebe",
 		"description": "Is coding your passion? Codemasters will give you the skills and the tools to become the best developer possible. We specialize in full stack web development and data science",
 		"website": "https://codemasters.com",
@@ -35,10 +34,10 @@
 		"skills": ["Web Development", "Data Science", "Business"],
 		"dob": 1681824811584,
 		"department": "Software Engeenering",
-		"university": "Addis Ababa Science And Technology"
+		"university": "Addis Ababa Science And Technology",
+		"password": "123456"
 	},
 	{
-		"_id": "5d725a1b7b292f5f8ceff781",
 		"name": "Aklile Seyoum",
 		"description": "Is coding your passion? Codemasters will give you the skills and the tools to become the best developer possible. We specialize in front end and full stack web development",
 		"website": "https://devcentral.com",
@@ -53,6 +52,7 @@
 		],
 		"dob": 1681824811584,
 		"department": "Software Engeenering",
-		"university": "Addis Ababa Science And Technology"
+		"university": "Addis Ababa Science And Technology",
+		"password": "123456"
 	}
 ]

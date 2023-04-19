@@ -11,7 +11,8 @@ router.use('/:usersId/jobs', jobsRouter)
 
 router.route('/:id/photo').put(uploadUserPhoto)
 
-router.route('/').get(advancedResults(User, 'jobs'), getUsers).post(createUser)
+// .post(createUser)
+router.route('/').get(advancedResults(User, 'jobs'), getUsers)
 router.route('/:id').put(updateUser).delete(deleteUser).get(getUser)
 
 module.exports = router

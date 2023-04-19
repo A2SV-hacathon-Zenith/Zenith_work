@@ -26,6 +26,10 @@ const UserSchema = new mongoose.Schema(
         required: [true, 'Please add phone number'],
         unique: true
       },
+      photo: {
+        type: String,
+        default: '/uploads/default.jpg'
+      },
       email: {
         type: String,
         match: [
