@@ -20,6 +20,9 @@ const StudentSchema = new mongoose.Schema({
       required: [true, 'Please add phone number'],
       unique: true
     },
+    averageRating: {
+      type: Number
+    },
     photo: {
       type: String,
       default: '/uploads/default.jpg'

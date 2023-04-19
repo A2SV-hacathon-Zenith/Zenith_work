@@ -6,6 +6,9 @@ const {getStudents, getStudent, createStudent, deleteStudent, updateStudent, upl
 const Student = require('../models/Students')
 const advancedResults = require('../middleware/advancedResult')
 
+const reviewRouter = require('./review')
+router.use('/:studentsId/reviews', reviewRouter)
+
 
 router.route('/:id/photo').put(uploadStudentPhoto)
 
