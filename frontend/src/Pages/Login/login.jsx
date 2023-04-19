@@ -2,6 +2,7 @@ import { Input, Tooltip, Button, Divider, Alert } from 'antd';
 import { UserOutlined, LockOutlined} from '@ant-design/icons';
 import { useState } from 'react';
 const Login = ()=>{
+    console.log("Login")
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
     const [errorMessage, serErrorMessage] = useState("")
