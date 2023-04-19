@@ -1,15 +1,21 @@
 import { Layout, Space, ConfigProvider, Button, Row, Col, Menu  } from 'antd';
+import {reactLocalStorage} from 'reactjs-localstorage';
 const { Header, Footer, Sider, Content } = Layout;
 import Post from './Pages/Post/post'
 import Home from './Pages/Home/home'
 import Login from './Pages/Login/login'
 import SignUp from './Pages/Signup/signup';
+import Profile from './Pages/Profile/profile';
 import Logo from './assets/z.png';
 import './index.css'
 
 import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
-
+const id = reactLocalStorage.get("id")
 const MainHome = ()=>{
+  const logout = ()=>{
+    reactLocalStorage.clear()
+    window.location.href = "/login"  
+  }
   return(
     <Layout>
           <Header className='bg-slate-50 w-full fixed top-0 flex justify-between z-10 shadow-sm'>
@@ -21,19 +27,19 @@ const MainHome = ()=>{
                 <a href="#">Message</a>
               </nav>
             </div>
-            <div className='flex gap-3 mt-4'>
+            {!id? (<div className='flex gap-3 mt-4'>
               <Button type='primary' href='/login'>Login</Button>
               <Button type='primary' href='/signup'>Sign Up</Button>
-            </div>
+            </div>): <div className='mt-2 cursor-pointer flex gap-3'><div className='rounded-full h-10 w-10 bg-slate-700'></div> <a className='mt-[-10px]' onClick={logout
+            }>Logout</a></div>}
           </Header>
           <Layout className='mx-20'>
             <Content className='mr-10 mt-20'>
               <Home />
-              
             </Content>
-            <Sider theme='light' className='mr-10 mt-20 p-4'>
+            {/* <Sider theme='light' className='mr-10 mt-20 p-4 !fixed'>
               <Post />
-            </Sider>
+            </Sider> */}
           </Layout>
           <Footer>
               
@@ -156,6 +162,7 @@ function App() {
             <Route exact path="/" element={<MainHome />} />
             <Route exact path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp/>} />
+            <Route path='/profile' element={<Profile />} />
           </Routes>
         </Router>
         
