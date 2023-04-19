@@ -2,6 +2,7 @@ const Job = require('../models/Jobs')
 const ErrorResponse = require('../utils/errorResponse')
 const asyncHandler = require('../middleware/async')
 const User = require('../models/User')
+const Jobs = require('../models/Jobs')
 
 // @desc Get all jobs
 // @route Get /api/v1/jobs
