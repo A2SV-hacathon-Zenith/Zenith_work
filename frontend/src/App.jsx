@@ -20,7 +20,7 @@ const MainHome = ()=>{
     <Layout>
           <Header className='bg-slate-50 w-full fixed top-0 flex justify-between z-10 shadow-sm'>
             <div className="flex items-center">
-              <a href="/"><img src={Logo} alt="Logo" className='h-10' /></a>
+              <a href="/"><img src={Logo} alt="Logo" className='h-10 mt-4' /></a>
               <nav className='ml-8 flex justify-evenly gap-4'>
                 {/* <a href="#">My Posts</a>
                 <a href="#"></a>
