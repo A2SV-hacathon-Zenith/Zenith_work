@@ -14,8 +14,10 @@ const advancedResults = (Model, populate, populate2) => async (req, res, next) =
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`)
     queryStr = JSON.parse(queryStr)
 
-    queryStr['title'] = new RegExp(queryStr['title'], 'i')
-    console.log(queryStr)
+    // queryStr['title'] = new RegExp(queryStr['title'], 'i')
+    for (const key in queryStr) {
+        queryStr[key] = new RegExp(queryStr[key], 'i')
+      }
 
     // queryStr.forEach(param => new RegExp(`${queryStr[param]}`, 'g'))
     query = Model.find(queryStr)
